@@ -47,18 +47,23 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.success('提交成功!');
             const params = new URLSearchParams();
             params.append('username', this.formValidate.username);
             params.append('password', this.formValidate.password);
             this.$http.post('/api/login', params)
               .then((response) => {
                 console.log(response.data);
+                if (response.data.err === 0 && response.data.data > 0) {
+                  this.$Message.success('登录成功!');
+                  // dispatch action，从action commit 到mutation更新登录状态
+                  this.$store.dispatch('loginSuccess', this.formValidate.username);
+                } else {
+                  this.$Message.error('帐号或密码有误!');
+                }
               })
               .catch((error) => {
                 console.log(error);
               });
-//            this.$router.push('/index');
           } else {
             this.$Message.error('表单填写有误!');
           }

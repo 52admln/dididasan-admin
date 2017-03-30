@@ -30,6 +30,9 @@
   width: auto;
   box-sizing: border-box;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 
   .layout-header {
     height: 60px;
@@ -61,11 +64,11 @@
   }
 
   .layout-content {
-    min-height: 200px;
     margin: 15px;
     overflow: hidden;
     background: #fff;
     border-radius: 4px;
+    flex: 1;
     .layout-content-main {
       padding: 10px;
     }

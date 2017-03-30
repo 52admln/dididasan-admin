@@ -47,3 +47,9 @@ const params = new URLSearchParams();
 
 ```
 
+### 问题2
+
+ESLint 报错：no-undef 'URLSearchParams' is not defined
+
+解决方法：https://segmentfault.com/q/1010000008159196
+

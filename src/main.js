@@ -6,6 +6,7 @@ import 'iview/dist/styles/iview.css';    // 使用 CSS
 import axios from 'axios';
 import App from './App';
 import router from './router';
+import store from './store';
 
 Vue.use(iView);
 Vue.prototype.$http = axios;
@@ -14,7 +15,8 @@ Vue.prototype.$http = axios;
 new Vue({
   el: '#app',
   router,
-  ...App
+  ...App,
+  store
 }).$mount('#app');
 
 // router.push('/index');

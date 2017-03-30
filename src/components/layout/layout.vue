@@ -2,13 +2,18 @@
   <div class="layout">
     <Row type="flex">
       <i-col span="5" class="layout-menu-left">
-        <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']">
+        <Menu active-name="0" theme="dark" width="auto">
           <div class="layout-logo-left">滴滴打伞</div>
+          <router-link to="/index">
+            <Menu-item name="0">
+              <Icon type="ios-navigate"></Icon>
+              仪表盘
+            </Menu-item>
+          </router-link>
           <Submenu name="1">
             <template slot="title">
-              <Icon type="ios-navigate"></Icon>
+              <Icon type="ios-person"></Icon>
               用户
-
             </template>
             <router-link to="/user">
               <Menu-item name="1-1">管理用户</Menu-item>
@@ -18,7 +23,6 @@
             <template slot="title">
               <Icon type="ios-keypad"></Icon>
               记录
-
             </template>
             <router-link to="/record/need">
               <Menu-item name="2-1">求助记录</Menu-item>
@@ -31,7 +35,6 @@
             <template slot="title">
               <Icon type="ios-analytics"></Icon>
               管理员
-
             </template>
             <router-link to="/admin/password">
               <Menu-item name="3-1">修改密码</Menu-item>
@@ -68,6 +71,14 @@
       name() {
         return this.$route.name;
       }
+    },
+    created() {
+      this.$nextTick(() => {
+        console.log(this.$store.getters.getUser.status);
+        if (this.$store.getters.getUser.status === '0') {
+          window.location.href = '/#/login';
+        }
+      });
     },
     components: {
       'v-footer': footer,

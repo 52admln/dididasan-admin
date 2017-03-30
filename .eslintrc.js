@@ -6,37 +6,32 @@ module.exports = {
   parserOptions: {
     sourceType: 'module'
   },
-  env: {
-    browser: true,
+  "env": {
+    "browser": true,
+    "node": true
   },
-  extends: 'airbnb-base',
+  "globals": {
+    "arguments": true,
+    "window": true,
+    "Promise": true
+  },
+  // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
+  extends: 'standard',
   // required to lint *.vue files
   plugins: [
     'html'
   ],
-  // check if imports actually resolve
-  'settings': {
-    'import/resolver': {
-      'webpack': {
-        'config': 'build/webpack.base.conf.js'
-      }
-    }
-  },
   // add your custom rules here
   'rules': {
-    // don't require .vue extension when importing
-    'import/extensions': ['error', 'always', {
-      'js': 'never',
-      'vue': 'never'
-    }],
-    // allow optionalDependencies
-    'import/no-extraneous-dependencies': ['error', {
-      'optionalDependencies': ['test/unit/index.js']
-    }],
+    // allow paren-less arrow functions
+    'arrow-parens': 0,
+    // allow async-await
+    'generator-star-spacing': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
-    'semi':['error','always'],
-    'comma-dangle': ['error', 'never'],
-    'no-console': ["error", { allow: ["log", "warn", "error"] }]
+    'semi': ['error', 'always'],
+    'no-tabs': 0,
+    'indent': 0,
+    'space-before-function-paren': 0,
   }
 }
