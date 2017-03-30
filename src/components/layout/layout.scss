@@ -1,0 +1,76 @@
+/* 左边栏 */
+.layout-menu-left {
+  display: block;
+  position: absolute;
+  width: 250px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #464c5b;
+
+  .layout-logo-left {
+    width: 90%;
+    height: 30px;
+    /*background: #5b6270;*/
+    border-radius: 3px;
+    margin: 15px auto;
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    line-height: 30px;
+  }
+}
+
+.layout-content-right {
+  position: absolute;
+  left: 250px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  box-sizing: border-box;
+  overflow-y: scroll;
+
+  .layout-header {
+    height: 60px;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+    .user-info {
+      float: right;
+      padding-top: 10px;
+      padding-right: 10px;
+
+      .avatar {
+        display: inline-block;
+        vertical-align: middle;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .nickname {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+  .layout-breadcrumb {
+    padding: 10px 15px 0;
+  }
+
+  .layout-content {
+    min-height: 200px;
+    margin: 15px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 4px;
+    .layout-content-main {
+      padding: 10px;
+    }
+  }
+
+
+}
+

@@ -1,0 +1,28 @@
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #318fce;
+  background: linear-gradient(to bottom right, #318fce 0%, #48e7ef 100%);
+
+  .login-form {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    border-radius: 2px;
+    padding: 30px 20px;
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      padding-bottom: 10px;
+    }
+    .form-area {
+      width: 300px;
+    }
+  }
+}
