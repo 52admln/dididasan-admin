@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+# dididasan-admin
+校园 Web App 滴滴打伞管理端
+
 # didi-dasan
 
 > A web app for student
@@ -45,7 +47,3 @@ const params = new URLSearchParams();
 
 ```
 
-=======
-# dididasan-admin
-校园 Web App 滴滴打伞管理端
->>>>>>> 49640c4ebead9b463db2ca1d6f0a16c3ccdea61e
