@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  const OK = 0; // 返回数据正常
+
   export default {
     data() {
       return {
@@ -53,10 +55,10 @@
             this.$http.post('/api/login', params)
               .then((response) => {
                 console.log(response.data);
-                if (response.data.err === 0 && response.data.data > 0) {
+                if (response.data.err === OK && response.data.data > 0) {
                   this.$Message.success('登录成功!');
                   // dispatch action，从action commit 到mutation更新登录状态
-                  this.$store.dispatch('loginSuccess', this.formValidate.username);
+                  this.$store.dispatch('login', this.formValidate.username);
                 } else {
                   this.$Message.error('帐号或密码有误!');
                 }

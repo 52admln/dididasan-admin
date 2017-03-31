@@ -2,13 +2,10 @@
  * Created by Wyj on 3/30/17.
  */
 
-export const loginSuccess = ({commit}, username) => {
+export const login = ({commit}, username) => {
   console.log(username);
-  // commit('LOGIN_SUCCESS', {
-  //   user: username
-  // });
   commit({
-    type: 'LOGIN_SUCCESS',
+    type: 'USER_LOGIN',
     user: username
   });
 };

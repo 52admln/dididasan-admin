@@ -36,13 +36,16 @@
 
   .layout-header {
     height: 60px;
+    /*line-height: 60px;*/
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-    .user-info {
+    .user {
       float: right;
-      padding-top: 10px;
-      padding-right: 10px;
+      padding-right: 20px;
 
+      .info {
+        line-height: 60px;
+      }
       .avatar {
         display: inline-block;
         vertical-align: middle;
@@ -65,7 +68,6 @@
 
   .layout-content {
     margin: 15px;
-    overflow: hidden;
     background: #fff;
     border-radius: 4px;
     flex: 1;
@@ -76,4 +78,3 @@
 
 
 }
-

@@ -1,12 +1,12 @@
 <template>
   <div class="">
-    this is index page
 
-  </div>
 </template>
 
 <script>
-  export default {};
+  export default {
+
+  };
 </script>
 
 <style>

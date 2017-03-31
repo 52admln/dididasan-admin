@@ -15,8 +15,11 @@
               <Icon type="ios-person"></Icon>
               用户
             </template>
-            <router-link to="/user">
-              <Menu-item name="1-1">管理用户</Menu-item>
+            <router-link to="/user/add">
+              <Menu-item name="1-1">新增用户</Menu-item>
+            </router-link>
+            <router-link to="/user/list">
+              <Menu-item name="1-2">管理用户</Menu-item>
             </router-link>
           </Submenu>
           <Submenu name="2">
@@ -74,8 +77,10 @@
     },
     created() {
       this.$nextTick(() => {
+        // 未登录状态跳转至登录页
         console.log(this.$store.getters.getUser.status);
-        if (this.$store.getters.getUser.status === '0') {
+        window.location.href = '/#/index';
+        if (this.$store.getters.getUser.status === false) {
           window.location.href = '/#/login';
         }
       });

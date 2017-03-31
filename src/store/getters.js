@@ -4,7 +4,7 @@
 
 export const getUser = (state) => {
   return {
-    user: state.loginUser,
-    status: state.loginStatus
+    user: state.user_info,
+    status: state.user_login
   };
 };

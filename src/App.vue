@@ -5,7 +5,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  export default {};
+
 </script>
 
 <style>
@@ -16,4 +16,5 @@
     min-height: 100%;
     max-height: 100%;
   }
+
 </style>

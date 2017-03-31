@@ -18,5 +18,3 @@ new Vue({
   ...App,
   store
 }).$mount('#app');
-
-// router.push('/index');

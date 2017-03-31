@@ -1,7 +1,7 @@
 <template>
   <div class="layout-header">
-    <Dropdown class="user-info">
-              <span class="">
+    <Dropdown class="user">
+              <span class="info">
               <img src="http://work.fengdb.com/static/img/img.2aab7b4.jpg" alt="" class="avatar">
               <span class="nickname">{{ userName }}</span>
             </span>
