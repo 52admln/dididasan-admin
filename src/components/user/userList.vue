@@ -5,7 +5,7 @@
       <Table border :context="self" :columns="tableColumns" :data="userData"></Table>
       <div style="margin: 10px;overflow: hidden">
         <div style="float: right;">
-          <Page :total="100" :current="1" @on-change="changePage"></Page>
+          <Page :total="total" :current="currentPage" :page-size="pageSize" @on-change="changePage"></Page>
         </div>
       </div>
       </Col>
@@ -18,6 +18,9 @@
     data () {
       return {
         self: this,
+        currentPage: 1,
+        total: 5,
+        pageSize: 6,
         tableColumns: [
           {
             type: 'selection',
@@ -87,16 +90,36 @@
       remove (index) {
         this.userData.splice(index, 1);
       },
-      changePage () {
+      changePage (curPage) {
         // 这里直接更改了模拟的数据，真实使用场景应该从服务端获取数据
         // this.userData = this.mockTableData1();
+        console.log(curPage);
+        // todo  往后台传2各参数，每页显示条数和当前页码
+        this.$http.get('/api/user', {
+          params: {
+            current: curPage,
+            page_size: this.pageSize
+          }
+        })
+          .then((response) => {
+            this.userData = response.data.data;
+            this.total = response.data.total;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     created() {
-      this.$http.get('/api/user')
+      this.$http.get('/api/user', {
+        params: {
+          current: this.currentPage,
+          page_size: this.pageSize
+        }
+      })
         .then((response) => {
           this.userData = response.data.data;
-          console.log(this.userData);
+          this.total = response.data.total;
         })
         .catch((error) => {
           console.log(error);
