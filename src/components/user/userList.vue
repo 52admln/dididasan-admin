@@ -10,10 +10,68 @@
       </div>
       </Col>
     </Row>
+    <!-- 删除确认 -->
+    <Modal v-model="delModel" width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="information-circled"></Icon>
+        <span>删除确认</span>
+      </p>
+      <div style="text-align:center">
+        <p>此用户删除后，所有记录将无法恢复。</p>
+        <p>是否继续删除？</p>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" long :loading="delModel_loading" @click="removeConfirm">删除</Button>
+      </div>
+    </Modal>
+    <!-- 用户资料修改 -->
+    <Modal
+      v-model="updateModel"
+      title="用户资料修改"
+      :loading="updateModel_loading"
+      @on-ok="updateConfirm">
+      <!-- todo form表单-->
+      <Form :model="updateUser" :label-width="80" class="form">
+        <Form-item label="用户名" prop="username">
+          <Input v-model="updateUser.username" placeholder="请输入用户名"></Input>
+        </Form-item>
+        <Form-item label="密码" prop="password">
+          <Input type="password" v-model="updateUser.newPwd" placeholder="不修改密码则留空"></Input>
+        </Form-item>
+        <Form-item label="确认密码" prop="confirm_password">
+          <Input v-model="updateUser.confirm_newPwd" placeholder="请再次输入新密码"></Input>
+        </Form-item>
+        <Form-item label="性别" prop="sex">
+          <Radio-group v-model="updateUser.sex">
+            <Radio v-for="item in sexList" :label="item.value" :key="item">{{ item.label }}</Radio>
+          </Radio-group>
+        </Form-item>
+        <Form-item label="手机号码" prop="phone">
+          <Input v-model="updateUser.telephone" placeholder="请输入手机号"></Input>
+        </Form-item>
+        <Form-item label="个性签名" prop="slogan">
+          <Input v-model="updateUser.slogan" placeholder="请输入个性签名"></Input>
+        </Form-item>
+        <Form-item label="所在学院" prop="school">
+          <Input v-model="updateUser.school" placeholder="请输入所在学院"></Input>
+        </Form-item>
+        <Form-item label="常去地址" prop="user_location">
+          <Input v-model="updateUser.user_location" placeholder="请输入常去地址"></Input>
+        </Form-item>
+        <Form-item label="搜索异性" prop="allowed">
+          <Radio-group v-model="updateUser.allowed">
+            <Radio label="0">禁止</Radio>
+            <Radio label="1">允许</Radio>
+          </Radio-group>
+        </Form-item>
+      </Form>
+    </Modal>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  const OK = 0; // 返回数据正常
+
   export default {
     data () {
       return {
@@ -21,6 +79,12 @@
         currentPage: 1,
         total: 5,
         pageSize: 6,
+        delModel: false, // 删除确认
+        delModel_loading: false,
+        updateModel: false, // 修改资料
+        updateModel_loading: true,
+        del_index: 0,
+        del_id: 0,
         tableColumns: [
           {
             type: 'selection',
@@ -67,13 +131,27 @@
             align: 'center',
             render (row, column, index) {
               return `<i-button size="small" @click="show(${index})">详情</i-button>
-                      <i-button type="primary"size="small" >修改</i-button>
+                      <i-button type="primary" size="small" @click="update(${index})">修改</i-button>
                       <i-button type="error" size="small" @click="remove(${index})">删除</i-button>`
                 .trim();
             }
           }
         ],
-        userData: []
+        userData: [],
+        updateUser: {
+          newPwd: '',
+          confirm_newPwd: ''
+        },
+        sexList: [
+          {
+            value: '0',
+            label: '男'
+          },
+          {
+            value: '1',
+            label: '女'
+          }
+        ]
       };
     },
     methods: {
@@ -87,14 +165,67 @@
                     <div class="other-info"><p><strong>个性签名：</strong>${slogan}</p><p><strong>常去地址：</strong>${location}</p></div>`.trim()
         });
       },
+      removeConfirm() {
+        this.delModel_loading = true;
+        // 删除操作提交到后台
+
+        this.$http.get('/api/user/del', {
+          params: {
+            user_id: this.del_id
+          }
+        })
+          .then((response) => {
+            console.log(response.data.data);
+            if (response.data.data > 0 && response.data.err === OK) {
+              this.$Message.success('删除成功');
+              this.userData.splice(this.del_index, 1);
+              this.delModel_loading = false;
+              this.delModel = false;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+            this.delModel_loading = false;
+            this.delModel = false;
+            this.$Message.error('删除失败');
+          });
+      },
       remove (index) {
-        this.userData.splice(index, 1);
+        this.delModel = true;
+        this.del_index = index;
+        this.del_id = this.userData[index].user_id;
+      },
+      updateConfirm () {
+        setTimeout(() => {
+          this.updateModel = false;
+          // todo  执行修改操作，获取用户数据，往后台传
+          this.$Message.success('修改成功');
+        }, 2000);
+      },
+      update(index) {
+        this.updateModel = true;
+        // 获取到用户id，提交后台获取当前用户的值
+        let userId = this.userData[index].user_id;
+        console.log(this.userData[index].user_id);
+        this.$http.get('/api/user', {
+          params: {
+            user_id: userId
+          }
+        })
+          .then((response) => {
+            let newData = response.data.data[0];
+            this.updateUser = Object.assign({}, this.updateUser, newData);
+            console.log(this.updateUser);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       },
       changePage (curPage) {
         // 这里直接更改了模拟的数据，真实使用场景应该从服务端获取数据
         // this.userData = this.mockTableData1();
         console.log(curPage);
-        // todo  往后台传2各参数，每页显示条数和当前页码
+        // 往后台传2各参数，每页显示条数和当前页码
         this.$http.get('/api/user', {
           params: {
             current: curPage,

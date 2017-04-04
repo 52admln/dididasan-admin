@@ -53,3 +53,26 @@ ESLint 报错：no-undef 'URLSearchParams' is not defined
 
 解决方法：https://segmentfault.com/q/1010000008159196
 
+### 问题3
+
+CI 框架删除数据无法返回映像行数
+
+用系统的 
+
+
+使用    
+```
+$this->db->query("DELETE users,helper FROM users LEFT JOIN helper ON users.user_id=helper.user_id WHERE users.user_id={$user_id}");
+$rows=$this->db->affected_rows();
+```
+
+
+### 问题4
+
+DELETE 多表数据
+
+从两个表中找出相同记录的数据并把两个表中的数据都删除掉
+
+DELETE t1,t2 FROM t1 LEFT JOIN t2 ON t1.id=t2.id WHERE t1.id=25 
+
+注意此处的delete t1,t2 from 中的t1,t2不能是别名
