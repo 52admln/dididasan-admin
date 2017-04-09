@@ -23,6 +23,17 @@ npm run build --report
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+# API
+## 登录
+### 后台
+ `/api/admin/login` 后台登录
+ `/api/admin/changepwd` 修改密码
+### 用户
+ `/api/user` 获取全部用户信息
+ `/api/user/add` 新增用户
+ `/api/user/update` 更新用户
+ `/api/user/del` 删除用户
+ `/api/user/validate/` 验证是否被注册
 
 # Problems
 
@@ -76,3 +87,5 @@ DELETE 多表数据
 DELETE t1,t2 FROM t1 LEFT JOIN t2 ON t1.id=t2.id WHERE t1.id=25 
 
 注意此处的delete t1,t2 from 中的t1,t2不能是别名
+
+(需要注意，先删除外键的记录，再删除主键的记录)

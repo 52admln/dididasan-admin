@@ -2,9 +2,14 @@
   <div class="user-list">
     <Row>
       <Col span="24">
-      <Table border :context="self" :columns="tableColumns" :data="userData"></Table>
+      <Spin fix v-show="!loading">
+        <Icon type="load-c" size=18       class="demo-spin-icon-load"></Icon>
+        <div>数据加载中...</div>
+      </Spin>
+      <Table border :context="self" :columns="tableColumns" :data="userData" v-show="loading">
+      </Table>
       <div style="margin: 10px;overflow: hidden">
-        <div style="float: right;">
+        <div style="float: right;" v-show="loading">
           <Page :total="total" :current="currentPage" :page-size="pageSize" @on-change="changePage"></Page>
         </div>
       </div>
@@ -25,12 +30,11 @@
       </div>
     </Modal>
     <!-- 用户资料修改 -->
-    <Modal
-      v-model="updateModel"
-      title="用户资料修改"
-      :loading="updateModel_loading"
-      @on-ok="updateConfirm">
-      <!-- todo form表单-->
+    <Modal v-model="updateModel"
+           title="用户资料修改"
+           :mask-closable="false"
+           :styles="{top: '10px'}">
+      <!-- form表单-->
       <Form :model="updateUser" :label-width="80" class="form">
         <Form-item label="用户名" prop="username">
           <Input v-model="updateUser.username" placeholder="请输入用户名"></Input>
@@ -65,24 +69,30 @@
           </Radio-group>
         </Form-item>
       </Form>
+      <div slot="footer">
+        <Button type="primary" :loading="updateModel_loading" @click="updateConfirm">提交</Button>
+        <Button @click="closeUpdateModel">关闭</Button>
+      </div>
     </Modal>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  // todo 增加用户搜索查询（用户名、电话查询）
   const OK = 0; // 返回数据正常
 
   export default {
     data () {
       return {
         self: this,
+        loading: false,
         currentPage: 1,
         total: 5,
         pageSize: 6,
         delModel: false, // 删除确认
         delModel_loading: false,
         updateModel: false, // 修改资料
-        updateModel_loading: true,
+        updateModel_loading: false,
         del_index: 0,
         del_id: 0,
         tableColumns: [
@@ -195,18 +205,65 @@
         this.del_index = index;
         this.del_id = this.userData[index].user_id;
       },
+      closeUpdateModel() {
+        this.updateModel = false;
+      },
       updateConfirm () {
-        setTimeout(() => {
-          this.updateModel = false;
-          // todo  执行修改操作，获取用户数据，往后台传
-          this.$Message.success('修改成功');
-        }, 2000);
+        // 执行修改操作，获取用户数据，往后台传
+        //        allowed
+        //        avatar
+        //        confirm_newPwd
+        //        newPwd
+        //        password
+        //        school
+        //        sex
+        //        slogan
+        //        telephone
+        //        user_id
+        //        user_location
+        //        username
+        // todo 如果填写了密码，需要进行表单验证，并且修改后台密码
+
+        // 提交操作
+        const params = new URLSearchParams();
+        params.append('username', this.updateUser.username);
+        params.append('user_location', this.updateUser.user_location);
+        params.append('telephone', this.updateUser.telephone);
+        params.append('slogan', this.updateUser.slogan);
+        params.append('sex', this.updateUser.sex);
+        params.append('school', this.updateUser.school);
+        params.append('allowed', this.updateUser.allowed);
+        params.append('user_id', this.updateUser.user_id);
+
+        if (this.updateUser.newPwd !== '') {
+          // 密码不为空的时候，修改密码
+          params.append('password', this.updateUser.newPwd); // 新密码
+        }
+        this.updateModel_loading = true;
+        this.$http.post('/api/user/update', params)
+          .then((response) => {
+            console.log(response.data);
+            if (response.data.err === 0 && response.data.data > 0) {
+              // 完成修改后异步操作  ,数据存储在 updateUser当中
+              this.updateModel = false;
+              this.$Message.success('提交成功');
+              this.updateModel_loading = false;
+              this.getData();
+            } else {
+              this.$Message.error('修改错误，请重试');
+              this.updateModel_loading = false;
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       },
       update(index) {
-        this.updateModel = true;
+        this.btnLoading = true;
         // 获取到用户id，提交后台获取当前用户的值
         let userId = this.userData[index].user_id;
         console.log(this.userData[index].user_id);
+        const loadingMsg = this.$Message.loading('正在加载中...', 0);
         this.$http.get('/api/user', {
           params: {
             user_id: userId
@@ -216,6 +273,8 @@
             let newData = response.data.data[0];
             this.updateUser = Object.assign({}, this.updateUser, newData);
             console.log(this.updateUser);
+            loadingMsg();
+            this.updateModel = true;
           })
           .catch((error) => {
             console.log(error);
@@ -239,22 +298,26 @@
           .catch((error) => {
             console.log(error);
           });
+      },
+      getData() {
+        this.$http.get('/api/user', {
+          params: {
+            current: this.currentPage,
+            page_size: this.pageSize
+          }
+        })
+          .then((response) => {
+            this.userData = response.data.data;
+            this.total = response.data.total;
+            this.loading = true;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     created() {
-      this.$http.get('/api/user', {
-        params: {
-          current: this.currentPage,
-          page_size: this.pageSize
-        }
-      })
-        .then((response) => {
-          this.userData = response.data.data;
-          this.total = response.data.total;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.getData();
     }
   };
 </script>

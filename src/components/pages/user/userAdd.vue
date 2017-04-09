@@ -55,7 +55,7 @@
         if (!value) {
           return callback(new Error('请输入用户名'));
         }
-        // 模拟异步验证效果
+        // 异步验证用户名是否被注册
         if (!/^[a-zA-Z]+[a-zA-Z0-9_]{2,10}$/.test(value)) {
           callback(new Error('长度2-10位字母数字，以字母开头'));
         } else {
@@ -118,7 +118,7 @@
         this.$refs[name].validate((valid) => {
           if (valid) {
             this.$Message.success('提交成功!');
-            // todo axios API
+            // axios API
             const params = new URLSearchParams();
             params.append('username', this.userData.username);
             params.append('password', this.userData.password);
@@ -146,8 +146,6 @@
   };
 </script>
 
-<style>
-  .form {
-    width: 50%;
-  }
+<style lang="sass" rel="stylesheet/scss">
+  @import "user.scss";
 </style>

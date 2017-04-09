@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import login from '../components/login/login';
-import layout from '../components/layout/layout';
-import index from '../components/index/index';
-import userAdd from '../components/user/userAdd';
-import userList from '../components/user/userList';
-import record from '../components/record/record';
-import adminPwd from '../components/admin/adminPwd';
+import login from '../components/pages/login/login';
+import layout from '../components/common/layout/layout';
+import index from '../components/pages/index/index';
+import userAdd from '../components/pages/user/userAdd';
+import userList from '../components/pages/user/userList';
+import record from '../components/pages/record/record';
+import changePwd from '../components/pages/admin/changePwd';
 
 Vue.use(Router);
 
@@ -31,7 +31,7 @@ export default new Router({
           path: '/record/:type', name: '记录', component: record
         },
         {
-          path: '/admin/password', name: '管理员', component: adminPwd
+          path: '/admin/password', name: '管理员', component: changePwd
         }
       ]
     },
@@ -47,3 +47,4 @@ export default new Router({
     }
   ]
 });
+

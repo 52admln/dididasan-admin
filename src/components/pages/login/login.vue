@@ -7,7 +7,7 @@
           <Input v-model="formValidate.username"></Input>
         </Form-item>
         <Form-item label="密码" prop="password">
-          <Input v-model="formValidate.password"></Input>
+          <Input type="password" v-model="formValidate.password"></Input>
         </Form-item>
         <Form-item>
           <Button type="primary" @click="handleSubmit('formValidate')" long>立即登录</Button>
@@ -52,7 +52,7 @@
             const params = new URLSearchParams();
             params.append('username', this.formValidate.username);
             params.append('password', this.formValidate.password);
-            this.$http.post('/api/login', params)
+            this.$http.post('/api/admin/login', params)
               .then((response) => {
                 console.log(response.data);
                 if (response.data.err === OK && response.data.data > 0) {
@@ -65,6 +65,7 @@
               })
               .catch((error) => {
                 console.log(error);
+                this.$Message.error('网络请求有误，请稍后重试!');
               });
           } else {
             this.$Message.error('表单填写有误!');

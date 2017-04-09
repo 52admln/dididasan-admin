@@ -3,7 +3,7 @@
     <Row type="flex">
       <i-col span="5" class="layout-menu-left">
         <Menu active-name="0" theme="dark" width="auto">
-          <div class="layout-logo-left">滴滴打伞</div>
+          <div class="layout-logo-left">Logo Name</div>
           <router-link to="/index">
             <Menu-item name="0">
               <Icon type="ios-navigate"></Icon>

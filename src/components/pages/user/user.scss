@@ -1,0 +1,31 @@
+.avatar {
+  display: inline-block;
+  vertical-align: middle;
+  img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+}
+.other-info {
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.demo-spin-icon-load{
+  animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+  from { transform: rotate(0deg);}
+  50%  { transform: rotate(180deg);}
+  to   { transform: rotate(360deg);}
+}
+.demo-spin-col{
+  height: 100px;
+  position: relative;
+  border: 1px solid #eee;
+}
+.form {
+  width: 50%;
+}
