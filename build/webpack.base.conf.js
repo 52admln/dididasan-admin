@@ -69,5 +69,8 @@ module.exports = {
         }
       }
     ]
+  },
+  externals: {
+    'AMap': 'window.AMap'
   }
 }

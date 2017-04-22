@@ -49,10 +49,13 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            const params = new URLSearchParams();
-            params.append('username', this.formValidate.username);
-            params.append('password', this.formValidate.password);
-            this.$http.post('/api/admin/login', params)
+//            const params = new URLSearchParams();
+//            params.append('username', this.formValidate.username);
+//            params.append('password', this.formValidate.password);
+            this.$http.post('/api/admin/login', {
+              username: this.formValidate.username,
+              password: this.formValidate.password
+            })
               .then((response) => {
                 console.log(response.data);
                 if (response.data.err === OK && response.data.data > 0) {
