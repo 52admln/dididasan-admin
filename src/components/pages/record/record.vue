@@ -49,7 +49,6 @@
           {
             title: '性别',
             key: 'sex',
-            width: '70',
             render (row, column, index) {
               const sex = row.sex === '1' ? '女' : '男';
               return `${sex}`;
