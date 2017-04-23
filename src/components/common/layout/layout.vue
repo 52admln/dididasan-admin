@@ -27,11 +27,8 @@
               <Icon type="ios-keypad"></Icon>
               记录
             </template>
-            <router-link to="/record/needer">
-              <Menu-item name="2-1">求助记录</Menu-item>
-            </router-link>
-            <router-link to="/record/helper">
-              <Menu-item name="2-2">帮助记录</Menu-item>
+            <router-link to="/record">
+              <Menu-item name="2-1">管理记录</Menu-item>
             </router-link>
           </Submenu>
           <Submenu name="3">

@@ -28,7 +28,7 @@ export default new Router({
           path: '/user/list', name: '用户管理', component: userList
         },
         {
-          path: '/record/:type', name: '记录', component: record
+          path: '/record', name: '管理记录', component: record
         },
         {
           path: '/admin/password', name: '管理员', component: changePwd
