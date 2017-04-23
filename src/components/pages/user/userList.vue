@@ -128,6 +128,8 @@
           {
             title: '搜索异性',
             key: 'allowed',
+            width: 120,
+            align: 'center',
             render (row) {
               const color = row.allowed === '1' ? 'green' : 'red';
               const text = row.allowed === '1' ? '允许' : '禁止';

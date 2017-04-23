@@ -1,34 +1,21 @@
 <template>
   <div class="index">
+    <Alert closable>通知：管理后台待完善中...</Alert>
+    <Row>
+      <Col span="24">
+        <Card dis-hover>
+          <p slot="title">欢迎使用</p>
+          <p>这是一款校园 Web App 《滴滴打伞》 应用的管理后台。</p>
+          <p>您可以在左侧选择相应菜单管理记录和用户。</p>
+        </Card>
+      </Col>
+    </Row>
     <Row>
       <Col span="16">
-      sadasdasd
-      asd
-      asdas
-      das
-      d
-      asdas
-      d
-      asd
+
       </Col>
       <Col span="8">
 
-      <i-circle
-        :size="250"
-        :trail-width="4"
-        :stroke-width="5"
-        :percent="75"
-        stroke-linecap="square"
-        stroke-color="#43a3fb">
-        <div class="demo-i-circle-custom">
-          <h1>42,001,776</h1>
-          <p>消费人群规模</p>
-          <span>
-                总占人数
-                <i>75%</i>
-            </span>
-        </div>
-      </i-circle>
 
       </Col>
     </Row>

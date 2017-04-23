@@ -11,6 +11,15 @@ import store from './store';
 Vue.use(iView);
 Vue.prototype.$http = axios;
 
+router.beforeEach((to, from, next) => {
+  iView.LoadingBar.start();
+  next();
+});
+
+router.afterEach((to, from, next) => {
+  iView.LoadingBar.finish();
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

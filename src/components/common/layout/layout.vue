@@ -2,14 +2,19 @@
   <div class="layout">
     <Row type="flex">
       <i-col span="5" class="layout-menu-left">
-        <Menu active-name="0" theme="dark" width="auto">
-          <div class="layout-logo-left">Logo Name</div>
-          <router-link to="/index">
-            <Menu-item name="0">
+        <Menu active-name="0-1" theme="dark" width="auto" accordion="true" :open-names="['0']">
+          <div class="layout-logo-left">滴滴打伞</div>
+          <Submenu name="0">
+            <template slot="title">
               <Icon type="ios-navigate"></Icon>
               仪表盘
-            </Menu-item>
-          </router-link>
+            </template>
+            <router-link to="/index">
+              <Menu-item name="0-1">
+                首页
+              </Menu-item>
+            </router-link>
+          </Submenu>
           <Submenu name="1">
             <template slot="title">
               <Icon type="ios-person"></Icon>
@@ -52,14 +57,13 @@
         </div>
         <div class="layout-content">
           <div class="layout-content-main">
-            <transition name="fade">
               <router-view></router-view>
-            </transition>
           </div>
         </div>
         <v-footer></v-footer>
       </i-col>
     </Row>
+    <Back-top></Back-top>
   </div>
 </template>
 <script type="text/ecmascript-6">
