@@ -10,7 +10,7 @@
           <Input type="password" v-model="formValidate.password"></Input>
         </Form-item>
         <Form-item>
-          <Button type="primary" @click="handleSubmit('formValidate')" long>立即登录</Button>
+          <Button type="primary" html-type="submit" @click="handleSubmit('formValidate')" long>立即登录</Button>
         </Form-item>
       </Form>
     </div>

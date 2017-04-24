@@ -23,14 +23,14 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8090,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     // 解决跨域问题
     proxyTable: {
       '/api': {
-        target: 'http://localhost/DiDiDaSan/',
+        target: 'http://localhost/didi-dasan',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/admin'

@@ -45,7 +45,7 @@
         total: 5,
         delModel: false, // 删除确认
         delModel_loading: false,
-        pageSize: 5,
+        pageSize: 10,
         del_index: 0,
         del_id: 0,
         tableColumns: [

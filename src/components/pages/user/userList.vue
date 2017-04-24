@@ -88,7 +88,7 @@
         loading: false,
         currentPage: 1,
         total: 5,
-        pageSize: 6,
+        pageSize: 10,
         delModel: false, // 删除确认
         delModel_loading: false,
         updateModel: false, // 修改资料
