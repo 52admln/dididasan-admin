@@ -27,13 +27,24 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 ## 登录
 ### 后台
  `/api/admin/login` 后台登录
+ 
  `/api/admin/changepwd` 修改密码
+ 
 ### 用户
  `/api/user` 获取全部用户信息
+ 
  `/api/user/add` 新增用户
+ 
  `/api/user/update` 更新用户
+ 
  `/api/user/del` 删除用户
+ 
  `/api/user/validate/` 验证是否被注册
+ 
+### 记录
+ `/api/record` 获取记录
+ 
+ `/api/record/del` 删除记录
 
 # Problems
 
