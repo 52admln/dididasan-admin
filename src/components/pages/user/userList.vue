@@ -168,12 +168,13 @@
     },
     methods: {
       show (index) {
+        const imgPath = 'http://localhost:8888/DiDiDaSan/';
         const avatar = this.userData[index].avatar === null ? 'img/noavatar_big.gif' : this.userData[index].avatar;
         const slogan = this.userData[index].slogan === null ? '暂无' : this.userData[index].slogan;
         const location = this.userData[index].user_location === null ? '暂无' : this.userData[index].user_location;
         this.$Modal.info({
           title: '用户信息',
-          content: `<div class="avatar"><img src="http://localhost/DiDiDaSan/${avatar}" alt=""></div>
+          content: `<div class="avatar"><img src="${imgPath + avatar}" alt=""></div>
                     <div class="other-info"><p><strong>个性签名：</strong>${slogan}</p><p><strong>常去地址：</strong>${location}</p></div>`.trim()
         });
       },

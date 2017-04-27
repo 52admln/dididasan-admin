@@ -49,19 +49,23 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-//            const params = new URLSearchParams();
-//            params.append('username', this.formValidate.username);
-//            params.append('password', this.formValidate.password);
-            this.$http.post('/api/admin/login', {
-              username: this.formValidate.username,
-              password: this.formValidate.password
-            })
+            const params = new URLSearchParams();
+            params.append('username', this.formValidate.username);
+            params.append('password', this.formValidate.password);
+            this.$http.post('/api/admin/login', params)
               .then((response) => {
                 console.log(response.data);
-                if (response.data.err === OK && response.data.data > 0) {
+                if (response.data.err === OK) {
                   this.$Message.success('登录成功!');
+                  console.log(response.data);
+                  const data = {
+                    username: this.formValidate.username,
+                    token: response.data.token
+                  };
+                  this.$store.dispatch('login', data);
                   // dispatch action，从action commit 到mutation更新登录状态
-                  this.$store.dispatch('login', this.formValidate.username);
+//                  this.$store.dispatch('login', this.formValidate.username);
+                  this.$router.push('/index');
                 } else {
                   this.$Message.error('帐号或密码有误!');
                 }

@@ -73,11 +73,9 @@
         //  送往后台 修改 oldpwd , newpassword
         this.$refs[name].validate((valid) => {
           if (valid) {
-            let username = this.$store.getters.getUser.user;
             let oldpwd = this.formCustom.oldppasswd;
             let newpwd = this.formCustom.passwd;
             const params = new URLSearchParams();
-            params.append('username', username);
             params.append('oldpwd', oldpwd);
             params.append('newpwd', newpwd);
 

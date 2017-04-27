@@ -9,8 +9,6 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const state = {
-  user_login: false,
-  user_info: ''
 };
 
 export default new Vuex.Store({

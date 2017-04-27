@@ -10,7 +10,7 @@ import changePwd from '../components/pages/admin/changePwd';
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -47,4 +47,23 @@ export default new Router({
     }
   ]
 });
+// JWT 用户权限校验，判断 TOKEN 是否在 localStorage 当中
+router.beforeEach(({name}, from, next) => {
+  // 获取 JWT Token
+  if (localStorage.getItem('JWT_TOKEN')) {
+    // 如果用户在login页面
+    if (name === 'login') {
+      next('/');
+    } else {
+      next();
+    }
+  } else {
+    if (name === 'login') {
+      next();
+    } else {
+      next({name: 'login'});
+    }
+  }
+});
 
+export default router;

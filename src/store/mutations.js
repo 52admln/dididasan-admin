@@ -1,14 +1,12 @@
 export default {
   USER_LOGIN(state, payload) {
     console.log(payload.user);
-    state.user_login = true;
-    state.user_info = payload.user;
-    window.location.href = '/#/index';
+    localStorage.setItem('USER_NAME', payload.username);
+    localStorage.setItem('JWT_TOKEN', payload.token);
   },
   LOG_OUT(state) {
     console.log('logout');
-    state.user_login = false;
-    state.user_info = '';
-    window.location.href = '/#/login';
+    localStorage.removeItem('JWT_TOKEN');
+    localStorage.removeItem('USER_NAME');
   }
 };

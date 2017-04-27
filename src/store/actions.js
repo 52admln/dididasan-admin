@@ -2,11 +2,13 @@
  * Created by Wyj on 3/30/17.
  */
 
-export const login = ({commit}, username) => {
-  console.log(username);
+export const login = ({commit}, data) => {
+  console.log(data.username);
+  console.log(data.token);
   commit({
     type: 'USER_LOGIN',
-    user: username
+    username: data.username,
+    token: data.token
   });
 };
 

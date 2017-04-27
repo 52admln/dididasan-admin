@@ -3,8 +3,9 @@
  */
 
 export const getUser = (state) => {
-  return {
-    user: state.user_info,
-    status: state.user_login
-  };
+  return localStorage.getItem('USER_NAME');
+};
+
+export const getToken = (state) => {
+  return localStorage.getItem('JWT_TOKEN');
 };

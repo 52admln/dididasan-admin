@@ -12,27 +12,26 @@ class Admin_model extends CI_Model
 
     public function login()
     {
-        $data = json_decode($this->input->raw_input_stream);
-//        $username = $this->input->post_get('username', TRUE);
-        $username = $data->username;
-//        $password = $this->input->post_get('password', TRUE);
-        $password = $data->password;
+//        $data = json_decode($this->input->raw_input_stream);
+        $username = $this->input->post_get('username', TRUE);
+//        $username = $data->username;
+        $password = $this->input->post_get('password', TRUE);
+//        $password = $data->password;
         $where_array = array('username' => $username, 'password' => sha1($password));
         $query = $this->db->get_where('admin', $where_array);
-        if (!$query) {
-            $error = 1; // ERROR
+        // 用户名密码正确后，生成token，返回给前台
+        if ($query->num_rows() > 0) {
+            return $query->first_row()->id;
         } else {
-            $error = 0; // OK
+            return false;
         }
-        return array('err' => $error, "data" => $query->num_rows());
     }
 
-    public function changePwd()
+    public function changePwd($userid)
     {
-        $username = $this->input->post_get('username', TRUE);
         $oldpwd = $this->input->post_get('oldpwd', TRUE);
         $newpwd = $this->input->post_get('newpwd', TRUE);
-        $where_array = array('username' => $username, 'password' => sha1($oldpwd));
+        $where_array = array('id' => $userid, 'password' => sha1($oldpwd));
         $query = $this->db->get_where('admin', $where_array);
         if (!$query) {
             $error = 1; // ERROR
@@ -47,8 +46,7 @@ class Admin_model extends CI_Model
         $data = array(
             'password' => sha1($newpwd)
         );
-
-        $this->db->where('username', $username);
+        $this->db->where('id', $userid);
         $this->db->update('admin', $data);
         $result = $this->db->affected_rows();
         return array('err' => $error, "data" => $result);

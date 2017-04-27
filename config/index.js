@@ -30,7 +30,7 @@ module.exports = {
     // 解决跨域问题
     proxyTable: {
       '/api': {
-        target: 'http://localhost/didi-dasan',
+        target: 'http://localhost:8888/didi-dasan',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/admin'

@@ -2,7 +2,7 @@
   <div class="layout">
     <Row type="flex">
       <i-col span="5" class="layout-menu-left">
-        <Menu active-name="0-1" theme="dark" width="auto" accordion="true" :open-names="['0']">
+        <Menu active-name="0-1" theme="dark" width="auto" :accordion="true" :open-names="['0']">
           <div class="layout-logo-left">滴滴打伞</div>
           <Submenu name="0">
             <template slot="title">
@@ -77,14 +77,14 @@
       }
     },
     created() {
-      this.$nextTick(() => {
-        // 未登录状态跳转至登录页
-        console.log(this.$store.getters.getUser.status);
-        window.location.href = '/#/index';
-        if (this.$store.getters.getUser.status === false) {
-          window.location.href = '/#/login';
-        }
-      });
+//      this.$nextTick(() => {
+//        // 未登录状态跳转至登录页
+//        console.log(this.$store.getters.getUser.status);
+//        window.location.href = '/#/index';
+//        if (this.$store.getters.getUser.status === false) {
+//          window.location.href = '/#/login';
+//        }
+//      });
     },
     components: {
       'v-footer': footer,

@@ -19,12 +19,14 @@
   export default {
     computed: {
       userName() {
-        return this.$store.getters.getUser.user;
+        return this.$store.getters.getUser;
       }
     },
     methods: {
       logout() {
         this.$store.dispatch('logout');
+        this.$Message.warning('已登出!');
+        this.$router.push('/login');
       }
     }
   };
