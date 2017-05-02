@@ -136,6 +136,7 @@
               })
               .catch((error) => {
                 console.log(error);
+                this.$Message.error('网络错误，请重试');
               });
           } else {
             this.$Message.error('表单填写有误，请检查!');

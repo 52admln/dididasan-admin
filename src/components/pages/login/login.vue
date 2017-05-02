@@ -11,9 +11,26 @@
         </Form-item>
         <Form-item>
           <Button type="primary" html-type="submit" @click="handleSubmit('formValidate')" long>立即登录</Button>
+          <a @click.prevent="forgotPwd">忘记密码？</a>
         </Form-item>
       </Form>
     </div>
+    <!-- 忘记密码 -->
+    <Modal v-model="findpwd_modal"
+           title="忘记密码？"
+           :mask-closable="false"
+    >
+      <!-- form表单-->
+      <Form ref="findPwd" :model="findPwd" :rules="findPwdValidate" :label-width="80" class="form">
+        <Form-item label="邮箱" prop="mail">
+          <Input v-model="findPwd.mail" placeholder="请输入绑定的邮箱"></Input>
+        </Form-item>
+      </Form>
+      <div slot="footer">
+        <Button type="primary" :loading="findpwd_loading" @click="handlePwd('findPwd')">提交</Button>
+        <Button @click="closePwdModal">关闭</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -23,6 +40,21 @@
   export default {
     data() {
       return {
+        findpwd_loading: false,
+        findpwd_modal: false,
+        findPwd: {
+          mail: ''
+        },
+        findPwdValidate: {
+          mail: [
+            {
+              required: true,
+              message: '请输入邮箱',
+              trigger: 'blur',
+              type: 'email'
+            }
+          ]
+        },
         formValidate: {
           username: '',
           password: ''
@@ -46,6 +78,37 @@
       };
     },
     methods: {
+      // 忘记密码
+      handlePwd(name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            this.findpwd_loading = true;
+            const params = new URLSearchParams();
+            params.append('mail', this.findPwd.mail);
+            this.$http.post('/api/admin/findpwd', params)
+              .then((response) => {
+                console.log(response.data);
+                if (response.data.err === OK) {
+                  this.findpwd_modal = false;
+                  this.$Message.success('提交成功');
+                  this.findpwd_loading = false;
+                } else {
+                  this.$Message.error(response.data.data);
+                  this.findpwd_loading = false;
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                this.$Message.error('网络错误，请重试');
+              });
+          } else {
+            this.$Message.error('表单填写有误!');
+          }
+        });
+      },
+      closePwdModal() {
+        this.findpwd_modal = false;
+      },
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
@@ -78,6 +141,9 @@
             this.$Message.error('表单填写有误!');
           }
         });
+      },
+      forgotPwd() {
+        this.findpwd_modal = true;
       }
     }
   };

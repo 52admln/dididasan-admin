@@ -8,7 +8,8 @@ class User extends CI_Controller
         $this->load->model('user_model');
 
         $header = $this->input->get_request_header('Authorization', TRUE);
-        if ($header != '' && jwt_helper::validate($header)) {
+      list($token) = sscanf($header, 'token %s');
+      if ($header != '' && jwt_helper::validate($token)) {
             $result = $this->user_model->get_users();
             echo json_encode($result);
         } else {
@@ -22,7 +23,8 @@ class User extends CI_Controller
         $this->load->model('user_model');
 
         $header = $this->input->get_request_header('Authorization', TRUE);
-        if ($header != '' && jwt_helper::validate($header)) {
+      list($token) = sscanf($header, 'token %s');
+      if ($header != '' && jwt_helper::validate($token)) {
                 $result = $this->user_model->add_user();
                 echo json_encode($result);
         } else {
@@ -37,7 +39,8 @@ class User extends CI_Controller
         $this->load->model('user_model');
 
         $header = $this->input->get_request_header('Authorization', TRUE);
-        if ($header != '' && jwt_helper::validate($header)) {
+      list($token) = sscanf($header, 'token %s');
+      if ($header != '' && jwt_helper::validate($token)) {
             $result = $this->user_model->update_user();
             echo json_encode($result);
         } else {
@@ -52,7 +55,8 @@ class User extends CI_Controller
         $this->load->model('user_model');
 
         $header = $this->input->get_request_header('Authorization', TRUE);
-        if ($header != '' && jwt_helper::validate($header)) {
+      list($token) = sscanf($header, 'token %s');
+      if ($header != '' && jwt_helper::validate($token)) {
             $result = $this->user_model->del_user();
             echo json_encode($result);
         } else {
@@ -67,7 +71,8 @@ class User extends CI_Controller
         $this->load->model('user_model');
 
         $header = $this->input->get_request_header('Authorization', TRUE);
-        if ($header != '' && jwt_helper::validate($header)) {
+      list($token) = sscanf($header, 'token %s');
+      if ($header != '' && jwt_helper::validate($token)) {
             $result = $this->user_model->validate_user();
             echo json_encode($result);
         } else {

@@ -57,7 +57,7 @@
         </div>
         <div class="layout-content">
           <div class="layout-content-main">
-              <router-view></router-view>
+            <router-view></router-view>
           </div>
         </div>
         <v-footer></v-footer>
@@ -85,6 +85,7 @@
 //          window.location.href = '/#/login';
 //        }
 //      });
+      this.$router.push('/index');
     },
     components: {
       'v-footer': footer,

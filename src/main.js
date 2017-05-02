@@ -34,6 +34,7 @@ axios.interceptors.response.use(
         case 401:
           // 返回 401 清除token信息并跳转到登录页面
           store.commit('LOG_OUT');
+          this.$Message.warning('非法访问，请重试！');
           router.replace({
             path: 'login',
             query: {redirect: router.currentRoute.fullPath}

@@ -225,7 +225,7 @@
         //        user_id
         //        user_location
         //        username
-        // todo 如果填写了密码，需要进行表单验证，并且修改后台密码
+        // 如果填写了密码，需要进行表单验证，并且修改后台密码
 
         // 提交操作
         const params = new URLSearchParams();
@@ -300,6 +300,7 @@
           })
           .catch((error) => {
             console.log(error);
+            this.$Message.error('网络错误，请重试');
           });
       },
       getData() {
@@ -316,6 +317,7 @@
           })
           .catch((error) => {
             console.log(error);
+            this.$Message.error('网络错误，请重试');
           });
       }
     },

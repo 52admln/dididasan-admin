@@ -184,6 +184,7 @@
           })
           .catch((error) => {
             console.log(error);
+            this.$Message.error('网络错误，请重试');
           });
       },
       changePage (curPage) {
@@ -202,6 +203,7 @@
           })
           .catch((error) => {
             console.log(error);
+            this.$Message.error('网络错误，请重试');
           });
       },
       fetchData() {
@@ -221,6 +223,7 @@
           })
           .catch((error) => {
             console.log(error);
+            this.$Message.error('网络错误，请重试');
           });
       }
     }
