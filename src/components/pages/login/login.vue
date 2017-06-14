@@ -35,6 +35,7 @@
 </template>
 
 <script>
+  import qs from 'qs';
   const OK = 0; // 返回数据正常
 
   export default {
@@ -83,8 +84,9 @@
         this.$refs[name].validate((valid) => {
           if (valid) {
             this.findpwd_loading = true;
-            const params = new URLSearchParams();
-            params.append('mail', this.findPwd.mail);
+//            const params = new URLSearchParams();
+//            params.append('mail', this.findPwd.mail);
+            const params = qs.stringify({ 'mail': this.findPwd.mail });
             this.$http.post('/api/admin/findpwd', params)
               .then((response) => {
                 console.log(response.data);
@@ -112,9 +114,10 @@
       handleSubmit(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            const params = new URLSearchParams();
-            params.append('username', this.formValidate.username);
-            params.append('password', this.formValidate.password);
+//            const params = new URLSearchParams();
+//            params.append('username', this.formValidate.username);
+//            params.append('password', this.formValidate.password);
+            const params = qs.stringify({ 'username': this.formValidate.username, 'password': this.formValidate.password });
             this.$http.post('/api/admin/login', params)
               .then((response) => {
                 console.log(response.data);
