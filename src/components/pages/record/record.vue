@@ -3,7 +3,7 @@
     <Row>
       <Col span="24">
       <Spin fix v-show="!loading">
-        <Icon type="load-c" size=18     class="demo-spin-icon-load"></Icon>
+        <Icon type="load-c" size=18  class="demo-spin-icon-load"></Icon>
         <div>数据加载中...</div>
       </Spin>
       <Table border :context="self" :columns="tableColumns" :data="recordData" v-show="loading">

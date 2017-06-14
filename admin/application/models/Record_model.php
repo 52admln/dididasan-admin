@@ -31,7 +31,7 @@ class Record_model extends CI_Model
             return array('err' => $error, "data" => $query->result_array(), "total" => $total);
         }
         // 返回指定数据
-        $offsetRows = $pageSize * ($currentPage - 1); // 数据偏移量
+          $offsetRows = $pageSize * ($currentPage - 1); // 数据偏移量
         $query = $this->db->query("SELECT users.username, users.sex, helper.id, helper.location, helper.target,helper.id, helper.time, helper.itemtype FROM users, helper WHERE helper.user_id = users.user_id LIMIT {$offsetRows}, {$pageSize}");
 
         if (!$query) {
